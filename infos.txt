@@ -1,0 +1,45 @@
+# Word to LaTeX Translation Workflow
+
+This repository contains a LaTeX conversion of the FUSILLO CCCT dipole magnet article. The goal of the translation is to preserve the meaning, structure, figures, tables, citations, and section order of the source document while making the result compile cleanly in LaTeX.
+
+## Files That Matter
+
+- `main.tex` is the primary article source.
+- `cernatsnote.cls` defines the custom CERN article style and title formatting.
+- `references.bib` stores bibliography entries used by `\cite{...}`.
+- `images/` contains the figure files referenced from `main.tex`.
+
+## Translation Approach
+
+1. Recreate the Word document structure in LaTeX first: title, author block, abstract, table of contents, sections, subsections, figures, tables, and bibliography.
+2. Keep the wording as close as possible to the source while converting it into clean LaTeX syntax.
+3. Replace Word formatting with LaTeX equivalents instead of copying visual spacing literally.
+4. Convert each figure into an explicit `figure` environment with `\includegraphics`, `\caption`, and `\label`.
+5. Convert tables into `tabular` environments and keep numeric values and units unchanged.
+6. Preserve citation keys and make sure every reference used in the text exists in `references.bib`.
+7. Use `\ref{...}` for internal links to figures and sections.
+
+## Style Rules
+
+- Prefer semantic LaTeX structure over manual layout hacks.
+- Use the existing custom class rather than adding new formatting packages unless necessary.
+- Keep special spacing changes local to the relevant section of `main.tex`.
+- Avoid reflowing or rewriting content that is already correct and compiles.
+
+## Validation Loop
+
+1. Edit the smallest relevant part of `main.tex` or `cernatsnote.cls`.
+2. Run `pdflatex main.tex`.
+3. If citations or cross references are unresolved, rerun the build until the warnings settle.
+4. Check the log for real errors, then adjust the exact source line that caused them.
+
+## Practical Translation Tips
+
+- When a Word paragraph only adds visual spacing, replace it with a minimal LaTeX spacing command or remove it entirely.
+- If the table of contents or title page has too much whitespace, prefer editing the surrounding document commands rather than changing global class settings.
+- Keep figure file names and labels consistent so later references stay stable.
+- If a translated passage is already clear and accurate, leave it alone instead of polishing style aggressively.
+
+## Current Build Status
+
+The document compiles successfully with `pdflatex main.tex`.
